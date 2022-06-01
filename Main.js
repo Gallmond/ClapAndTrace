@@ -3,26 +3,19 @@ import {View, Text, StyleSheet} from 'react-native';
 import HomeScreenButtons from './Components/HomeScreenButtons';
 import Logo from './Components/Logo';
 import SquareButton from './Components/SquareButton';
-import {PAGES, PAGE_HOME, PAGE_REPORT} from './Helpers/Constants';
+import {PAGE_CHECK, PAGE_CODE, PAGE_HOME, PAGE_REPORT} from './Helpers/Constants';
+import HomePage from './Components/Pages/HomePage';
+import CodePage from './Components/Pages/CodePage';
 
 import {PageContext} from './Contexts/PageContext';
 
 const Main = () => {
+
+  /**
+   * Establish application state
+   */
   const [currentPage, setCurrentPage] = useState(PAGE_HOME);
-
-  const homeScreenButtonsOnPress = page => {
-    console.log('homeScreenButtonsOnPress', page);
-
-    if (!PAGES.includes(page)) {
-      throw new Error(`${page} is not a valid page`);
-    }
-
-    setCurrentPage(page);
-  };
-
-  const updateCurrentPage = page => {
-    console.log('updateCurrentPage', page);
-  };
+ 
 
   return (
     <View style={styles.container}>
@@ -34,23 +27,30 @@ const Main = () => {
       <View style={styles.bottomBit}>
         <PageContext.Provider value={{currentPage, setCurrentPage}}>
 
+          {/* Page content zone */}
+          <View style={styles.pageContentZone}>
+            {currentPage === PAGE_HOME && ( <HomePage /> )}
+            {currentPage === PAGE_CODE && ( <CodePage /> )}
+            {currentPage === PAGE_CHECK && ( <Text>Check page</Text> )}
+            {currentPage === PAGE_REPORT && ( <Text>Report page</Text> )}
+          </View>
+
+          {/* bottom nav zone */}
+          <View style={styles.bottomNavZone}>
           {currentPage === PAGE_HOME && (
-            <React.Fragment>
-              <View style={styles.buttonsContainer}>
-                <HomeScreenButtons />
-              </View>
-
-              <View style={styles.reportButtonContainer}>
-                <SquareButton onPress={() => { setCurrentPage(PAGE_REPORT); }} title="Report positive test" />
-              </View>
-            </React.Fragment>
-          )}
-
-          {currentPage !== PAGE_HOME && (
             <View style={styles.buttonsContainer}>
+              <SquareButton onPress={() => { setCurrentPage(PAGE_REPORT); }} title="Report positive test" />
+            </View>
+          )}
+          {currentPage !== PAGE_HOME && (
+            <View style={styles.reportButtonContainer}>
               <SquareButton onPress={() => { setCurrentPage(PAGE_HOME); }} title="Home" />
             </View>
           )}
+          </View>
+
+
+          
 
 
         </PageContext.Provider>
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
   },
   bottomBit: {
     flex: 2,
-    backgroundColor: 'green',
+    // backgroundColor: 'green',
     justifyContent: 'space-between',
   },
   buttonsContainer: {
@@ -81,6 +81,13 @@ const styles = StyleSheet.create({
   reportButtonContainer: {
     marginLeft: 'auto',
     marginRight: 'auto',
+  },
+  pageContentZone: {
+    // backgroundColor: 'red',
+
+  },
+  bottomNavZone: {
+    // backgroundColor: 'blue',
   },
 });
 

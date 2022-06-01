@@ -4,7 +4,6 @@ import SquareButton from './SquareButton';
 import { PAGE_SCAN, PAGE_CODE, PAGE_CHECK, PAGES } from './../Helpers/Constants';
 import { PageContext } from '../Contexts/PageContext';
 
-
 const HomeScreenButtons = (props) => {
 
   const { currentPage, setCurrentPage } = useContext( PageContext );
