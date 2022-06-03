@@ -3,11 +3,12 @@ import {View, Text, StyleSheet} from 'react-native';
 import HomeScreenButtons from './Components/HomeScreenButtons';
 import Logo from './Components/Logo';
 import SquareButton from './Components/SquareButton';
-import {PAGE_CHECK, PAGE_CODE, PAGE_HOME, PAGE_REPORT} from './Helpers/Constants';
+import {PAGE_CHECK, PAGE_CODE, PAGE_HOME, PAGE_REPORT, PAGE_SCAN} from './Helpers/Constants';
 import HomePage from './Components/Pages/HomePage';
 import CodePage from './Components/Pages/CodePage';
 
 import {PageContext} from './Contexts/PageContext';
+import ScanPage from './Components/Pages/ScanPage';
 
 const Main = () => {
 
@@ -31,6 +32,7 @@ const Main = () => {
           <View style={styles.pageContentZone}>
             {currentPage === PAGE_HOME && ( <HomePage /> )}
             {currentPage === PAGE_CODE && ( <CodePage /> )}
+            {currentPage === PAGE_SCAN && ( <ScanPage /> )}
             {currentPage === PAGE_CHECK && ( <Text>Check page</Text> )}
             {currentPage === PAGE_REPORT && ( <Text>Report page</Text> )}
           </View>
