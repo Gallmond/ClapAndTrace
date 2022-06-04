@@ -9,6 +9,7 @@ import CodePage from './Components/Pages/CodePage';
 
 import {PageContext} from './Contexts/PageContext';
 import ScanPage from './Components/Pages/ScanPage';
+import CheckPage from './Components/Pages/CheckPage';
 
 const Main = () => {
 
@@ -33,7 +34,7 @@ const Main = () => {
             {currentPage === PAGE_HOME && ( <HomePage /> )}
             {currentPage === PAGE_CODE && ( <CodePage /> )}
             {currentPage === PAGE_SCAN && ( <ScanPage /> )}
-            {currentPage === PAGE_CHECK && ( <Text>Check page</Text> )}
+            {currentPage === PAGE_CHECK && ( <CheckPage /> )}
             {currentPage === PAGE_REPORT && ( <Text>Report page</Text> )}
           </View>
 
