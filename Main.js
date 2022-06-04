@@ -10,6 +10,7 @@ import CodePage from './Components/Pages/CodePage';
 import {PageContext} from './Contexts/PageContext';
 import ScanPage from './Components/Pages/ScanPage';
 import CheckPage from './Components/Pages/CheckPage';
+import ReportPage from './Components/Pages/ReportPage';
 
 const Main = () => {
 
@@ -35,7 +36,7 @@ const Main = () => {
             {currentPage === PAGE_CODE && ( <CodePage /> )}
             {currentPage === PAGE_SCAN && ( <ScanPage /> )}
             {currentPage === PAGE_CHECK && ( <CheckPage /> )}
-            {currentPage === PAGE_REPORT && ( <Text>Report page</Text> )}
+            {currentPage === PAGE_REPORT && ( <ReportPage /> )}
           </View>
 
           {/* bottom nav zone */}
