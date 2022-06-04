@@ -12,7 +12,13 @@ const ScanPage = () => {
 
   const storeCode = ( barCode ) => {
     console.log('storeCode', barCode);
-    //TODO add to the 'what I heard' store of codes.
+    /**
+     * in 'the real world' this would save the barcode to the local devices
+     * store of 'what I heard' codes.
+     * 
+     * It should also do a check immediately even though this basically destroys
+     * any sense of anonymity.
+     */
   }
 
   const isValidBarcodeData = ( barCode ) => {

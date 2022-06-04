@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native'
+import { View, Text, StyleSheet, ToastAndroid, Platform } from 'react-native'
 import SquareButton from '../../Components/SquareButton';
 
 const CheckPage = () => {
@@ -19,8 +19,23 @@ const CheckPage = () => {
        * But we'll just randomly pick a result
        */
       setCheckInProgress(false);
-      setPositiveReported(Math.random() > 0.5);
+      const isPositive = Math.random() > 0.5
+      setPositiveReported( isPositive );
+      triggerNotification( isPositive );
     }, 3000);
+  }
+
+  const triggerNotification = ( isPositive ) => {
+    if(Platform.OS !== 'android'){
+      return;
+    }
+
+    ToastAndroid.show(isPositive
+      ? 'Your device has encountered a code that has been associated with a positive test.'
+      : 'No positive tests associated with this code.',
+      ToastAndroid.LONG
+    );
+
   }
 
   const renderReport = ( isPositive ) => {
