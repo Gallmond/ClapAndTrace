@@ -3,9 +3,14 @@ import { Text, StyleSheet, TouchableOpacity } from 'react-native';
 
 const SquareButton = (props) => {
 
-  const { title, onPress } = props;
+  const { title, onPress, small } = props;
 
-  return (<TouchableOpacity style={styles.container} onPress={onPress}>
+  // change styles if small is true
+  const styleMod = small === true
+    ? {width: 170, height: 37}
+    : {}
+
+  return (<TouchableOpacity style={{...styles.container, ...styleMod }} onPress={onPress}>
     <Text style={styles.text}>{title ?? 'Button Text'}</Text>
   </TouchableOpacity>)
 }

@@ -13,7 +13,7 @@ const CoolDatePicker = (props) => {
 
   return (
     <>
-      <SquareButton title={(date).toISOString().split('T')[0]} onPress={() => setOpen(true)} />
+      <SquareButton small={true} title={(date).toISOString().split('T')[0]} onPress={() => setOpen(true)} />
       <DatePicker
         textColor='#fff'
         modal
