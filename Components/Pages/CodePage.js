@@ -41,10 +41,9 @@ const generateQrCode = () => {
   return dataString;
 }
 
-
 const CodePage = () => {
 
-  return (<View style={styles.container}>
+return (<View style={styles.container}>
     <Text style={{...styles.text, marginBottom: 5}}>This is your code.</Text>
     <Text style={styles.text}>Your partner should tap 'Scan a code' and scan this code!</Text>
 

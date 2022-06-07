@@ -1,6 +1,5 @@
-import React, {useState} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
-import HomeScreenButtons from './Components/HomeScreenButtons';
+import React, {useState, useEffect} from 'react';
+import {View, Text, StyleSheet, BackHandler, Alert} from 'react-native';
 import Logo from './Components/Logo';
 import SquareButton from './Components/SquareButton';
 import {PAGE_CHECK, PAGE_CODE, PAGE_HOME, PAGE_REPORT, PAGE_SCAN} from './Helpers/Constants';
@@ -18,7 +17,22 @@ const Main = () => {
    * Establish application state
    */
   const [currentPage, setCurrentPage] = useState(PAGE_HOME);
- 
+
+  /**
+   * if the back button is pressed and we're not on the home page, go to the 
+   * home page
+   */
+  const backAction = () => {
+    if(currentPage !== PAGE_HOME){
+      setCurrentPage(PAGE_HOME)
+      return true; // prevent bubble up
+    }
+  }
+
+  useEffect(() => {
+    BackHandler.addEventListener("hardwareBackPress", backAction);
+    return () => BackHandler.removeEventListener("hardwareBackPress", backAction);
+  }, [currentPage]);
 
   return (
     <View style={styles.container}>
