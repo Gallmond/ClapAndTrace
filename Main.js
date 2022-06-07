@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     alignContent: 'center',
   },
   bottomBit: {
-    flex: 2,
+    flex: 3,
     // backgroundColor: 'green',
     justifyContent: 'space-between',
   },

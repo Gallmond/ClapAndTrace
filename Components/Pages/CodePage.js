@@ -36,8 +36,6 @@ const generateQrCode = () => {
 
   const dataString = dataParts.join(':');
 
-  console.log('generated code data', dataString);
-
   return dataString;
 }
 

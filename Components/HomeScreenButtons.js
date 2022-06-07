@@ -9,7 +9,6 @@ const HomeScreenButtons = (props) => {
   const { currentPage, setCurrentPage } = useContext( PageContext );
 
   const setPage = ( page ) => {
-    console.log('setPage', page);
     if(!PAGES.includes(page)){
       throw new Error(`${page} is not a valid page`);
     }

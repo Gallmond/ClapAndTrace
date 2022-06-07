@@ -11,7 +11,6 @@ const ScanPage = () => {
   const [currentBarCode, setCurrentBarCode] = useState(null)
 
   const storeCode = ( barCode ) => {
-    console.log('storeCode', barCode);
     /**
      * in 'the real world' this would save the barcode to the local devices
      * store of 'what I heard' codes.

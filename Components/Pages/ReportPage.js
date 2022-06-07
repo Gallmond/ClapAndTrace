@@ -26,7 +26,6 @@ const ReportPage = () => {
   };
 
   const submitReport = () => {
-    console.log('submitReport');
     /**
      * in the 'real world' we would now send all of our 'what I said' codes from
      * on or after the might-have-been-positive date to the remote server so
@@ -38,8 +37,6 @@ const ReportPage = () => {
     // get the most recent date (ie, the highest)
     const earliestDate = sinceDate.valueOf() < testDate.valueOf() ? sinceDate : testDate;
     const dateYYYYMMDD = earliestDate.toISOString().split('T')[0];
-
-    console.log('dateYYYYMMDD', dateYYYYMMDD);
 
     setSubmittedToday(true);
     thankYouNotification();
