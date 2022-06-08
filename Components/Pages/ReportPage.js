@@ -36,7 +36,6 @@ const ReportPage = () => {
 
     // get the most recent date (ie, the highest)
     const earliestDate = sinceDate.valueOf() < testDate.valueOf() ? sinceDate : testDate;
-    const dateYYYYMMDD = earliestDate.toISOString().split('T')[0];
 
     setSubmittedToday(true);
     thankYouNotification();
@@ -58,6 +57,8 @@ const ReportPage = () => {
 
       <View style={styles.formContainer}>
       
+        <LoadingText />
+
         {/* if no report today, show the form */}
         {!submittedToday && (
           <React.Fragment>

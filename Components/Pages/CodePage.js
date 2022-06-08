@@ -2,12 +2,12 @@ import React from 'react';
 import {View, StyleSheet, Text, NativeModules} from 'react-native';
 import QRCode from 'react-native-qrcode-svg';
 import {DATA_PREFIX} from '../../Helpers/Constants';
-import { JSHash, JSHmac, CONSTANTS } from "react-native-hash";
+import {JSHash, JSHmac, CONSTANTS} from 'react-native-hash';
 
-const hashString = async ( string ) => {
-  const hash = await JSHash("message", CONSTANTS.HashAlgorithms.sha256);
+const hashString = async string => {
+  const hash = await JSHash('message', CONSTANTS.HashAlgorithms.sha256);
   return hash;
-}
+};
 
 const generateQrCodeData = async () => {
   /**
@@ -31,7 +31,7 @@ const generateQrCodeData = async () => {
 
   fingerPrint = fingerPrint.replace(/\:/g, '-');
   console.log('preHash', fingerPrint);
-  const hashedFingerprint = await hashString( fingerPrint )
+  const hashedFingerprint = await hashString(fingerPrint);
   console.log('hashedFingerprint', hashedFingerprint);
 
   const todayYYYYMMDD = new Date().toISOString().split('T')[0];
@@ -47,12 +47,12 @@ const generateQrCodeData = async () => {
 };
 
 const CodePage = () => {
-    const [codeData, setCodeData] = React.useState(null);
+  const [codeData, setCodeData] = React.useState(null);
 
-  React.useEffect(()=>{
+  React.useEffect(() => {
     // uses async hashing, so has to be useEffect.
     generateQrCodeData().then(setCodeData);
-  }, [])
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -61,6 +61,9 @@ const CodePage = () => {
         Your partner should tap 'Scan a code' and scan this code!
       </Text>
       <View style={styles.qrContainer}>
+        {codeData === null && (
+          <Text style={styles.text}>Generating code...</Text>
+        )}
         {codeData && <QRCode value={codeData} size={250} />}
       </View>
     </View>
