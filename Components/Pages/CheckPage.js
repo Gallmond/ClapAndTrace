@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, ToastAndroid, Platform } from 'react-native'
+/* eslint-disable prettier/prettier */
+import React, {useState} from 'react';
+import {View, Text, StyleSheet, ToastAndroid, Platform, ActivityIndicator} from 'react-native';
 import SquareButton from '../../Components/SquareButton';
 
 const CheckPage = () => {
-
   const [checkInProgress, setCheckInProgress] = useState(null);
   const [positiveReported, setPositiveReported] = useState(false);
 
@@ -13,69 +13,82 @@ const CheckPage = () => {
       /**
        * in the 'real world' we would now do a call to the repository of codes
        * for 'positive cases said these codes' and compare it to 'codes I heard'
-       * and return positive if this phone has 'heard' any of the positivbe case
+       * and return positive if this phone has 'heard' any of the positive case
        * codes.
-       * 
+       *
        * But we'll just randomly pick a result
        */
       setCheckInProgress(false);
-      const isPositive = Math.random() > 0.5
-      setPositiveReported( isPositive );
-      triggerNotification( isPositive );
+      const isPositive = Math.random() > 0.5;
+      setPositiveReported(isPositive);
+      triggerNotification(isPositive);
     }, 3000);
-  }
+  };
 
-  const triggerNotification = ( isPositive ) => {
-    if(Platform.OS !== 'android'){
+  const triggerNotification = isPositive => {
+    if (Platform.OS !== 'android') {
       return;
     }
 
-    ToastAndroid.show(isPositive
-      ? 'Your device has encountered a code that has been associated with a positive test.'
-      : 'No positive tests associated with this code.',
-      ToastAndroid.LONG
+    ToastAndroid.show(
+      isPositive
+        ? 'Your device has encountered a code that has been associated with a positive test.'
+        : 'No positive tests associated with this code.',
+      ToastAndroid.LONG,
     );
+  };
 
-  }
-
-  const renderReport = ( isPositive ) => {
-    if(isPositive){
+  const renderReport = isPositive => {
+    if (isPositive) {
       return (
         <View style={styles.reportContainer}>
-          <Text style={styles.smallText}>Someone you recently banged has reported a positive test. Please get yourself checked!</Text>
-          <Text style={styles.smallText}>Be sure to report your own test if it is positive.</Text>
+          <Text style={styles.smallText}>
+            Someone you recently banged has reported a positive test. Please get
+            yourself checked!
+          </Text>
+          <Text style={styles.smallText}>
+            Be sure to report your own test if it is positive.
+          </Text>
           <Text style={styles.iconText}>⚠</Text>
         </View>
-      )
+      );
     }
 
-    return (<View style={styles.reportContainer}>
-      <Text style={styles.smallText}>None of your logged partners have reported anything. Have fun!</Text>
-      <Text style={styles.iconText}>✔</Text>
-    </View>)
-  }
+    return (
+      <View style={styles.reportContainer}>
+        <Text style={styles.smallText}>
+          None of your logged partners have reported anything. Have fun!
+        </Text>
+        <Text style={styles.iconText}>✔</Text>
+      </View>
+    );
+  };
 
-  return(
+  return (
     <View style={styles.container}>
-      <SquareButton title="Check now" onPress={performCheck}/>
+      <SquareButton title="Check now" onPress={performCheck} />
 
-      {checkInProgress && <Text style={styles.bigText}>Checking...</Text>}
+      {checkInProgress && <React.Fragment>
+        <Text style={styles.bigText}>
+          Checking...
+        </Text>
+        <ActivityIndicator size="large" />
+      </React.Fragment>}
 
-      {checkInProgress !== null && !checkInProgress && renderReport( positiveReported )}
-
+      {checkInProgress !== null &&
+        !checkInProgress &&
+        renderReport(positiveReported)}
     </View>
-  )
-
-
-}
+  );
+};
 
 const styles = StyleSheet.create({
-  iconText:{
+  iconText: {
     fontSize: 100,
     color: 'black',
   },
 
-  reportContainer:{
+  reportContainer: {
     alignContent: 'center',
     alignItems: 'center',
   },
@@ -84,9 +97,9 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     justifyContent: 'center',
     alignItems: 'center',
-  },  
+  },
 
-  bigText:{
+  bigText: {
     textAlign: 'center',
     color: 'black',
     fontFamily: 'normal',
@@ -94,15 +107,7 @@ const styles = StyleSheet.create({
     margin: 10,
   },
 
-  smallText: {
-    textAlign: 'center',
-    color: 'black',
-    fontFamily: 'normal',
-    margin: 10,
-    fontSize: 17,
-  }
-
+  smallText: { textAlign: 'center', color: 'black', fontFamily: 'normal', margin: 10, fontSize: 17 },
 });
 
 export default CheckPage;
-

@@ -1,21 +1,26 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
-import {View, Text, StyleSheet, ToastAndroid} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ToastAndroid,
+  ActivityIndicator,
+  Platform,
+} from 'react-native';
 import CoolDatePicker from '../CoolDatePicker';
 import SquareButton from '../SquareButton';
-
-const I = props => {
-  return <Text style={{fontStyle: 'italic'}}>{props.children}</Text>;
-};
 
 const B = props => {
   return <Text style={{fontWeight: 'bold'}}>{props.children}</Text>;
 };
 
 const ReportPage = () => {
-
   const [testDate, setTestDate] = useState(new Date());
+  // eslint-disable-next-line no-unused-vars
   const [sinceDate, setSinceDate] = useState(new Date());
   const [submittedToday, setSubmittedToday] = useState(false);
+  const [isSending, setIsSending] = useState(false);
 
   const onTestDateSet = newDate => {
     setTestDate(newDate);
@@ -33,20 +38,21 @@ const ReportPage = () => {
      *
      * We'll just pretend though.
      */
-
-    // get the most recent date (ie, the highest)
-    const earliestDate = sinceDate.valueOf() < testDate.valueOf() ? sinceDate : testDate;
+    setIsSending(true);
+    setTimeout(() => {
+      setIsSending(false);
+    }, 1500);
 
     setSubmittedToday(true);
     thankYouNotification();
   };
 
   const thankYouNotification = () => {
-    if(Platform.OS !== 'android'){
+    if (Platform.OS !== 'android') {
       return;
     }
     ToastAndroid.show('Thank you for reporting!', ToastAndroid.LONG);
-  }
+  };
 
   return (
     <View style={styles.container}>
@@ -56,9 +62,6 @@ const ReportPage = () => {
       </Text>
 
       <View style={styles.formContainer}>
-      
-        <LoadingText />
-
         {/* if no report today, show the form */}
         {!submittedToday && (
           <React.Fragment>
@@ -72,14 +75,19 @@ const ReportPage = () => {
 
         {/* else just a thank you message */}
         {submittedToday && (
-          <Text style={styles.text}>Thank you for being a responsible human.</Text>
+          <React.Fragment>
+            <Text style={styles.text}>
+              Thank you for being a responsible human.
+              {isSending && <ActivityIndicator size="large" />}
+            </Text>
+          </React.Fragment>
         )}
-        
       </View>
 
       {/* only show the submit button if a report has not been made today */}
-      {!submittedToday && ( <SquareButton title="submit" onPress={submitReport} /> )}
-      
+      {!submittedToday && (
+        <SquareButton title="submit" onPress={submitReport} />
+      )}
     </View>
   );
 };
