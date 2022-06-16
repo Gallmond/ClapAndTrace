@@ -1,8 +1,14 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, StyleSheet, BackHandler, Alert} from 'react-native';
+import {View, StyleSheet, BackHandler} from 'react-native';
 import Logo from './Components/Logo';
 import SquareButton from './Components/SquareButton';
-import {PAGE_CHECK, PAGE_CODE, PAGE_HOME, PAGE_REPORT, PAGE_SCAN} from './Helpers/Constants';
+import {
+  PAGE_CHECK,
+  PAGE_CODE,
+  PAGE_HOME,
+  PAGE_REPORT,
+  PAGE_SCAN,
+} from './Helpers/Constants';
 import HomePage from './Components/Pages/HomePage';
 import CodePage from './Components/Pages/CodePage';
 
@@ -12,65 +18,68 @@ import CheckPage from './Components/Pages/CheckPage';
 import ReportPage from './Components/Pages/ReportPage';
 
 const Main = () => {
-
   /**
    * Establish application state
    */
   const [currentPage, setCurrentPage] = useState(PAGE_HOME);
 
   /**
-   * if the back button is pressed and we're not on the home page, go to the 
+   * if the back button is pressed and we're not on the home page, go to the
    * home page
    */
   const backAction = () => {
-    if(currentPage !== PAGE_HOME){
-      setCurrentPage(PAGE_HOME)
+    if (currentPage !== PAGE_HOME) {
+      setCurrentPage(PAGE_HOME);
       return true; // prevent bubble up
     }
-  }
+  };
 
   useEffect(() => {
-    BackHandler.addEventListener("hardwareBackPress", backAction);
-    return () => BackHandler.removeEventListener("hardwareBackPress", backAction);
+    BackHandler.addEventListener('hardwareBackPress', backAction);
+    return () =>
+      BackHandler.removeEventListener('hardwareBackPress', backAction);
   }, [currentPage]);
 
   return (
     <View style={styles.container}>
       <View style={styles.topBit}>
-        <Text style={{color: 'black'}}>Current page is {currentPage}</Text>
         <Logo />
       </View>
 
       <View style={styles.bottomBit}>
         <PageContext.Provider value={{currentPage, setCurrentPage}}>
-
           {/* Page content zone */}
           <View style={styles.pageContentZone}>
-            {currentPage === PAGE_HOME && ( <HomePage /> )}
-            {currentPage === PAGE_CODE && ( <CodePage /> )}
-            {currentPage === PAGE_SCAN && ( <ScanPage /> )}
-            {currentPage === PAGE_CHECK && ( <CheckPage /> )}
-            {currentPage === PAGE_REPORT && ( <ReportPage /> )}
+            {currentPage === PAGE_HOME && <HomePage />}
+            {currentPage === PAGE_CODE && <CodePage />}
+            {currentPage === PAGE_SCAN && <ScanPage />}
+            {currentPage === PAGE_CHECK && <CheckPage />}
+            {currentPage === PAGE_REPORT && <ReportPage />}
           </View>
 
           {/* bottom nav zone */}
           <View style={styles.bottomNavZone}>
-          {currentPage === PAGE_HOME && (
-            <View style={styles.buttonsContainer}>
-              <SquareButton onPress={() => { setCurrentPage(PAGE_REPORT); }} title="Report positive test" />
-            </View>
-          )}
-          {currentPage !== PAGE_HOME && (
-            <View style={styles.reportButtonContainer}>
-              <SquareButton onPress={() => { setCurrentPage(PAGE_HOME); }} title="Home" />
-            </View>
-          )}
+            {currentPage === PAGE_HOME && (
+              <View style={styles.buttonsContainer}>
+                <SquareButton
+                  onPress={() => {
+                    setCurrentPage(PAGE_REPORT);
+                  }}
+                  title="Report positive test"
+                />
+              </View>
+            )}
+            {currentPage !== PAGE_HOME && (
+              <View style={styles.reportButtonContainer}>
+                <SquareButton
+                  onPress={() => {
+                    setCurrentPage(PAGE_HOME);
+                  }}
+                  title="Home"
+                />
+              </View>
+            )}
           </View>
-
-
-          
-
-
         </PageContext.Provider>
       </View>
     </View>
@@ -102,7 +111,6 @@ const styles = StyleSheet.create({
   },
   pageContentZone: {
     // backgroundColor: 'red',
-
   },
   bottomNavZone: {
     // backgroundColor: 'blue',
